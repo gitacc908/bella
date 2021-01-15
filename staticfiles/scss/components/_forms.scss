@@ -1,0 +1,52 @@
+.form-input {
+  label {
+  }
+
+  .form-input-error {
+    font-size: 12px;
+    color: red
+  }
+
+  input {
+
+    &[type="text"], &[type="number"], &[type="password"] {
+    }
+
+    &[type="checkbox"] {
+    }
+
+    &[type="checkbox"] + .indicator {
+    }
+
+    &[type="checkbox"]:checked + .indicator {
+    }
+
+    &[type="radio"] {
+    }
+
+    &[type="radio"] + .indicator {
+    }
+
+    &[type="radio"]:checked + .indicator {
+    }
+
+  }
+
+  select {
+
+  }
+
+  textarea {
+
+  }
+
+  button {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+
+    &[disabled] {
+
+    }
+  }
+}
