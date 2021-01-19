@@ -8,8 +8,10 @@ $maxWidth: 1920;
   }
   @media (min-width: 640px) {
     font-size: calc(#{$mobSize + px} + #{$addSize} * (100vw / #{$maxWidth}));
+
   }
 }
+
 
 @mixin MQ($size) {
   @if $size == m-desctop {

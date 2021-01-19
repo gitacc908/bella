@@ -40,10 +40,10 @@
 
     <body>
 
-        {% include 'sprite.html' %}
+        {% include 'spriteSVG/sprite.html' %}
 
         {% block header %}
-            {% include 'partials/header.html' %}
+            {% include 'partials/header/header.html' %}
         {% endblock %}
 
         <main class="{% block page %}{% endblock %}">
@@ -52,8 +52,12 @@
 
         </main>
 
+        <div class="icon">
+            <svg atrr="asdasdasd"></svg>
+        </div>
+
         {% block footer %}
-            {% include 'partials/footer.html' %}
+            {% include 'partials/footer/footer.html' %}
         {% endblock %}
 
         <script src="{% static 'js/jquery-2.2.4.js' %}"></script>
