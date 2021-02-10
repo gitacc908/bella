@@ -2,7 +2,6 @@ import os
 
 import environ
 
-
 ROOT_DIR = environ.Path(__file__) - 3
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname((os.path.abspath(__file__)))))
@@ -16,6 +15,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'webp_converter',
 
     'apps.templates_app',
 ]
@@ -44,6 +45,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'webp_converter.context_processors.webp_support',
             ],
         },
     },
