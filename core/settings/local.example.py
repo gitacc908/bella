@@ -1,4 +1,5 @@
-from core.settings.base import *
+import environ
+env = environ.Env()
 
 
 SECRET_KEY = env.str('DJANGO_SECRET_KEY', default='not secret)')
