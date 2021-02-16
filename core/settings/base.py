@@ -1,8 +1,8 @@
 import os
+import logging
 
 import environ
 
-ROOT_DIR = environ.Path(__file__) - 3
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname((os.path.abspath(__file__)))))
 
@@ -85,10 +85,18 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'staticfiles'),
+    os.path.join(BASE_DIR, 'assets'),
 )
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
+
+try:
+    from .local import *
+except ImportError:
+    try:
+        from .prod import *
+    except ImportError:
+        logging.error('core.settings.prod.py file not found !')
