@@ -16,8 +16,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'webp_converter',
-
     'apps.templates_app',
 ]
 
@@ -45,7 +43,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'webp_converter.context_processors.webp_support',
             ],
         },
     },
