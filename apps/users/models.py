@@ -58,7 +58,7 @@ class Bookmark(models.Model):
     """
     user = models.OneToOneField(CustomUser, verbose_name='Избранное', on_delete=models.CASCADE,
                                 related_name='bookmark')
-    product = models.ForeignKey(Product, verbose_name='Товар в избранном', on_delete=models.SET_NULL)
+    product = models.ForeignKey(Product, verbose_name='Товар в избранном', on_delete=models.SET_NULL, null=True)
 
     class Meta:
         verbose_name = 'Избранное'

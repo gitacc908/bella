@@ -13,7 +13,7 @@ class Order(models.Model):
     """
     owner = models.ForeignKey(User, verbose_name='Владелец заказа', blank=True, null=True, related_name='orders',
                               on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания заказа')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания заказа')
     is_paid = models.BooleanField(default=False, verbose_name='Оплачено')
     buying_type = models.PositiveSmallIntegerField(choices=PAYMENT_CHOICES, verbose_name='Тип оплаты')
     is_delivered = models.BooleanField(default=False, verbose_name='Доставлено')
