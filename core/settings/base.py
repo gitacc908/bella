@@ -16,8 +16,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'apps.templates_app',
+    # Third-party apps
+    'mptt',
+
+    # Local apps
+    'apps.users',
+    'apps.product',
+    'apps.about',
+    'apps.order',
+    'apps.cart',
+    'apps.category',
+    'apps.delivery',
+    'apps.contacts',
+    'apps.faq',
+    'apps.news'
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
