@@ -7,9 +7,12 @@ class Category(MPTTModel):
     """
     Category model that has 3 fields and self-related
     """
-    title = models.CharField(max_length=100, verbose_name='Наименование категории')
-    slug = models.SlugField(max_length=100, verbose_name='Ссылка на категорию', unique=True)
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    title = models.CharField(
+        max_length=100, verbose_name='Наименование категории')
+    slug = models.SlugField(
+        max_length=100, verbose_name='Ссылка на категорию', unique=True)
+    parent = TreeForeignKey(
+        'self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     class MPTTMeta:
         order_insertion_by = ['title']

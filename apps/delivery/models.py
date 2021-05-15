@@ -5,8 +5,10 @@ class DeliveryInfo(models.Model):
     """
     DeliveryInfo model that stores information about deliver
     """
-    body = models.TextField(verbose_name='Информация о доставке')
-    created_at = models.DateTimeField(auto_now_add=True)
+    body = models.TextField(
+        verbose_name='Информация о доставке')
+    created_at = models.DateTimeField(
+        auto_now_add=True)
 
     class Meta:
         verbose_name = 'Информация о доставке'
