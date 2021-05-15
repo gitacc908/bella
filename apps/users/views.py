@@ -2,7 +2,7 @@ from rest_framework import generics
 from rest_framework import permissions
 
 from apps.users.models import Bookmark
-from apps.users.serializers import BookmarkSerializer, BookmarkAddSerializer
+from apps.users.serializers import BookmarkSerializer
 
 
 class BookmarkAPIListView(generics.ListAPIView):
@@ -15,7 +15,7 @@ class BookmarkAPIListView(generics.ListAPIView):
 
 class BookmarkAPIAddView(generics.UpdateAPIView):
     queryset = Bookmark.objects.all()
-    serializer_class = BookmarkAddSerializer
+    serializer_class = BookmarkSerializer
 
     def get_object(self):
         return Bookmark.objects.filter(user=self.request.user)[0]

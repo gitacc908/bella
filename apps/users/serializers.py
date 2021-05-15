@@ -8,11 +8,3 @@ class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookmark
         fields = ('product',)
-
-
-class BookmarkAddSerializer(serializers.ModelSerializer):
-    product = serializers.PrimaryKeyRelatedField(many=True, read_only=False, queryset=Product.objects.all())
-
-    class Meta:
-        model = Bookmark
-        fields = ('product',)
