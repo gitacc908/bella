@@ -1,7 +1,6 @@
 from django.db import models
 from django.db.models.fields import DecimalField
 from apps.category.models import Category
-from django.contrib.auth import get_user_model
 from autoslug import AutoSlugField
 from django.urls import reverse
 from .choices import (
@@ -11,17 +10,11 @@ from .choices import (
 )
 
 
-User = get_user_model()
-
-
 class Product(models.Model):
     """
     Contains data for product, m2m relation with Category
     and bunch of choice fields for product
     """
-    owner = models.ForeignKey(
-        User, on_delete=models.CASCADE
-    )
     categories = models.ManyToManyField(
         Category, verbose_name='Категория', related_name='products'
     )
@@ -29,7 +22,7 @@ class Product(models.Model):
         max_length=255, verbose_name='Наименование товара'
     )
     slug = AutoSlugField(
-        populate_from='title', unique=True
+        populate_from='title', unique=True,
     )
     article = models.CharField(
         max_length=255, verbose_name='Артикль'
@@ -78,7 +71,7 @@ class Product(models.Model):
         ordering = ('-created',)
 
     def __str__(self):
-        return f'Title: {self.title}, Owner: {self.owner}'
+        return f'Title: {self.title}'
 
     def get_absolute_url(self):
         return reverse("product_detail", kwargs={"slug": self.slug})
