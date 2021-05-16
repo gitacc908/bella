@@ -6,6 +6,14 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Third-party apps
+    path('rest-auth/', include('rest_framework.urls')),
+
+    # Local apps
+    path('api1/', include('apps.users.urls')),
+    path('api2/', include('apps.category.urls')),
+    path('api4/', include('apps.order.urls')),
 ]
 
 if settings.DEBUG:
