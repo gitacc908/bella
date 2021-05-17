@@ -1,12 +1,30 @@
-from apps.users.models import CustomUser
+from rest_framework import generics
 from apps.product.models import Product
-from rest_framework import viewsets
-from apps.product.serializers import ProductSerializers
+from apps.product.serializers import ProductSerializer
 
 
-class ProductViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
+class ProductListAPIView(generics.ListAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializers
+    serializer_class = ProductSerializer
+
+
+class ProductDetailAPIView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'slug'
+
+
+class LatestAPIView(generics.ListAPIView):
+    queryset = Product.objects.all()[0:12]
+    serializer_class = ProductSerializer
+
+
+class BestsellerAPIView(generics.ListAPIView):
+    queryset = Product.objects.order_by('-rating')[0:12]
+    serializer_class = ProductSerializer
+
+
+class SortByAPIView(generics.ListAPIView):  # TODO: get sort by param from front
+    # queryset = Product.objects.order_by('-rating')[0:12]
+    # serializer_class = ProductSerializer
+    pass

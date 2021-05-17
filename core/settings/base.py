@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     'apps.product',
     'apps.about',
     'apps.order',
-    'apps.cart',
     'apps.category',
     'apps.delivery',
     'apps.contacts',
@@ -81,6 +80,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 LANGUAGE_CODE = 'ru'
 

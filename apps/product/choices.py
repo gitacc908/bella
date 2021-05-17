@@ -46,16 +46,16 @@ BXXL = 58
 BXXXL = 60
 
 SIZE_RANGE_CHOICES = (
-    (XS, '42'),
-    (S, '44'),
-    (M, '46'),
-    (L, '48'),
-    (XL, '50'),
-    (XXL, '52'),
-    (XXXL, '54'),
-    (BXL, '56'),
-    (BXXL, '58'),
-    (BXXXL, '60'),
+    (XS, XS),
+    (S, S),
+    (M, M),
+    (L, L),
+    (XL, XL),
+    (XXL, XXL),
+    (XXXL, XXXL),
+    (BXL, BXL),
+    (BXXL, BXXL),
+    (BXXXL, BXXXL),
 )
 
 LENGTH_RANGE_CHOICES = (

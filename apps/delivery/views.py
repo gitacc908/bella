@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import DeliveryInfo
+from .serializers import DeliveryInfoSerializer
 
-# Create your views here.
+
+class DeliveryAPIView(generics.ListAPIView):
+    queryset = DeliveryInfo.objects.all()
+    serializer_class = DeliveryInfoSerializer

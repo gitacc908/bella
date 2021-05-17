@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from apps.news.models import New
+from apps.news.models import News
 
 
-@admin.register(New)
+@admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at', 'draft')
     list_display_links = ('title',)

@@ -54,12 +54,23 @@ class OrderItem(models.Model):
         verbose_name = 'Заказанный товар'
         verbose_name_plural = 'Заказанные товары'
 
-    def get_cost(self):
-        return self.price * self.quantity
-
     def __str__(self):
         if self.owner:
             return f'Заказ для {self.product.title} продукта \
                         от {self.order.owner.first_name} {self.order.owner.last_name}'
         else:
             return f'Заказ для {self.product.title} продукта от анонимного пользователя'
+
+    def get_cost(self):
+        return self.price * self.quantity
+
+    def get_discount_cost(self):
+        if self.product.discount:
+            percent = self.price / 100 * self.product.discount
+            return self.price - percent
+        return 'No discount'
+
+    def get_final_cost(self):
+        if self.product.discount:
+            return self.get_discount_cost()
+        return self.get_cost()

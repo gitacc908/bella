@@ -25,7 +25,7 @@ class Product(models.Model):
         populate_from='title', unique=True,
     )
     article = models.CharField(
-        max_length=255, verbose_name='Артикль'
+        max_length=255, verbose_name='Артикул'
     )
     quantity = models.PositiveIntegerField(
         default=1, verbose_name='Количество продукта'
@@ -71,7 +71,7 @@ class Product(models.Model):
         ordering = ('-created',)
 
     def __str__(self):
-        return f'Title: {self.title}'
+        return f'Заголовок: {self.title}'
 
     def get_absolute_url(self):
         return reverse("product_detail", kwargs={"slug": self.slug})
