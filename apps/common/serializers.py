@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import fields, serializers
 from .models import (
     News, FAQ, Contact, DeliveryInfo, About
 )
@@ -7,28 +7,28 @@ from .models import (
 class AboutInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = About
-        exclude = ('id', 'created_at')
+        exclude = ('created_at')
 
 
 class ContactInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        exclude = ('id',)
+        fields = '__all__'
 
 
 class DeliveryInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeliveryInfo
-        exclude = ('id', 'created_at')
+        exclude = ('created_at')
 
 
 class FAQSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
-        exclude = ('id',)
+        fields = '__all__'
 
 
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
-        exclude = ('slug', 'id')
+        fields = '__all__'
