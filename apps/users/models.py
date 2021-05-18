@@ -1,5 +1,8 @@
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from apps.product.models import Product
 
 
@@ -36,11 +39,14 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     """Customising default django user to our fields"""
     phone = models.CharField(
-        unique=True, max_length=30, verbose_name='Номер телефона')
+        unique=True, max_length=30, verbose_name='Номер телефона'
+    )
     country = models.CharField(
-        max_length=200, verbose_name='Страна доставки')
+        max_length=255, verbose_name='Страна доставки'
+    )
     city = models.CharField(
-        max_length=150, verbose_name='Город доставки')
+        max_length=255, verbose_name='Город доставки'
+    )
     favorite_products = models.ManyToManyField(
         Product, verbose_name='Товар в избранном'
     )

@@ -39,10 +39,11 @@ class Category(MPTTModel):
 
 
 class Product(models.Model):
+
     """
-    Contains data for product, m2m relation with Category
-    and bunch of choice fields for product
-    """
+        Contains data for product, m2m relation with Category
+        and bunch of choice fields for product
+        """
     categories = models.ManyToManyField(
         Category, verbose_name='Категория', related_name='products'
     )

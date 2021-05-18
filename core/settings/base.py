@@ -3,6 +3,8 @@ import logging
 
 import environ
 
+from datetime import timedelta
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname((os.path.abspath(__file__)))))
@@ -20,7 +22,7 @@ INSTALLED_APPS = [
     # Third-party apps
     'mptt',
     'rest_framework',
-    # 'rest_framework.authtoken',
+    'rest_framework_simplejwt.token_blacklist',
 
     # Local apps
     'apps.users',
@@ -77,16 +79,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-}
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentication.TokenAuthentication',  # <-- And here
-#     ],
-# }
 LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Asia/Bishkek'
@@ -96,6 +88,18 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=20),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
+    'ROTATE_REFRESH_TOKENS': True,
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ]
+}
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

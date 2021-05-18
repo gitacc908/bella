@@ -23,6 +23,7 @@ class RegisterSerializer(serializers.ModelSerializer):
                 'write_only': True, 'style':
                 {
                     'input_type':
+
                     'password', 'placeholder': 'Password'
                 }
             }

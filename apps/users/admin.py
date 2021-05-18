@@ -10,20 +10,12 @@ class CustomUserAdmin(UserAdmin):
     """
     fieldsets = (
         (None, {'fields': ('phone', 'password')}),
-        (
-            _('Персональная Информация'), {
-                'fields': ('first_name', 'last_name',)
-            }
-        ),
-        (
-            _('Избранные'), {'fields': ('favorite_products',)}
-        ),
-        (
-            _('Права доступа'), {
-                'fields': ('is_active', 'is_staff', 'is_superuser',
-                           'groups', 'user_permissions')
-            }
-        ),
+        (_('Персональная Информация'), {
+         'fields': ('first_name', 'last_name',)}),
+        (_('Избранные'), {'fields': ('favorite_products',)}),
+        (_('Права доступа'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+                                         'groups', 'user_permissions')}),
+
         (_('Важные даты'), {'fields': ('last_login', 'date_joined')},),
     )
     add_fieldsets = (
