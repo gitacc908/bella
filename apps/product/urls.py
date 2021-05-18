@@ -17,4 +17,10 @@ urlpatterns = [
          name='best-seller'),
     path('sort-by/', SortByAPIView.as_view(),
          name='sort-by'),
+
+    # category
+    #     path('category/', CategoryListAPIView.as_view(),
+    #          name='category-list'),
+    #     path('category/<slug:slug>/', CategoryDetailAPIView.as_view(),
+    #          name='category-detail')
 ]

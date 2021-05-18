@@ -12,9 +12,9 @@ urlpatterns = [
 
     # Local apps
     path('api1/', include('apps.users.urls')),
-    path('api2/', include('apps.category.urls')),
-    path('api4/', include('apps.order.urls')),
-    path('api5/', include('apps.product.urls')),
+    path('api2/', include('apps.product.urls')),
+    path('api3/', include('apps.order.urls')),
+    path('api4/', include('apps.common.urls')),
 ]
 
 if settings.DEBUG:

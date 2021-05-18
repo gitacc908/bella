@@ -20,17 +20,13 @@ INSTALLED_APPS = [
     # Third-party apps
     'mptt',
     'rest_framework',
+    # 'rest_framework.authtoken',
 
     # Local apps
     'apps.users',
     'apps.product',
-    'apps.about',
     'apps.order',
-    'apps.category',
-    'apps.delivery',
-    'apps.contacts',
-    'apps.faq',
-    'apps.news'
+    'apps.common'
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -86,7 +82,11 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
-
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.TokenAuthentication',  # <-- And here
+#     ],
+# }
 LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Asia/Bishkek'

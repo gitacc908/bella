@@ -1,36 +1,79 @@
-from rest_framework.decorators import api_view
-from rest_framework import generics
-from rest_framework import permissions
-from rest_framework.views import APIView
-
-from apps.users.models import Bookmark
-from apps.users.serializers import BookmarkSerializer
+from django.contrib.auth import get_user_model
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import generics, permissions
+from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.exceptions import TokenError
+
+from apps.product.models import Product
+from apps.users.serializers import (
+    UserBookmarkSerializer, UserSerializer, RegisterSerializer
+)
 
 
-class BookmarkAPIListView(generics.ListAPIView):
-    serializer_class = BookmarkSerializer
+User = get_user_model()
+
+
+class UserAPICreateView(generics.CreateAPIView):
+    queryset = User
+    serializer_class = RegisterSerializer
+
+
+class UserAPIListView(generics.ListAPIView):
+    queryset = User
+    serializer_class = UserSerializer
+
+
+class BlackListTokenView(APIView):
+
+    def post(self, request):
+        try:
+            refresh_token = request.data['refresh_token']
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+        except TokenError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class BookmarkAPIDetailView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserBookmarkSerializer
     permission_classes = (permissions.IsAuthenticated, )
 
-    def get_queryset(self):
-        return Bookmark.objects.filter(user=self.request.user)
+    def get_object(self):
+        return generics.get_object_or_404(User, phone=self.request.user.phone)
 
 
-class BookmarkAPIAddView(generics.UpdateAPIView):
-    queryset = Bookmark.objects.all()
-    serializer_class = BookmarkSerializer
+class AddToBookmarkView(generics.UpdateAPIView):
+    """
+        API geting product ID to add this product into user's bookmark
+    """
+    queryset = User.objects.all()
+    serializer_class = UserBookmarkSerializer
+    permission_classes = (permissions.IsAuthenticated, )
 
     def get_object(self):
-        return Bookmark.objects.filter(user=self.request.user)[0]
+        return generics.get_object_or_404(User, phone=self.request.user.phone)
+
+    def perform_update(self, serializer):
+        user_bookmark = self.get_object()
+        user_bookmark.favorite_products.add(
+            serializer.validated_data.get('favorite_products')[0])
 
 
-# class UserView(APIView):
-#     permission_classes = (permissions.IsAuthenticated, )
+class DeleteFromBookmarkView(generics.UpdateAPIView):
+    """
+        API geting product ID to delete this product from user's bookmark
+    """
+    queryset = User.objects.all()
+    serializer_class = UserBookmarkSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
-#     def get(self, request):
-#         return Response('Ok')
+    def get_object(self):
+        return generics.get_object_or_404(User, phone=self.request.user.phone)
 
-
-# @api_view()
-# def userView(request):
-#     return Response({"message": "Hello, world!"})
+    def perform_update(self, serializer):
+        product = serializer.validated_data.get('favorite_products')[0]
+        user_bookmark = self.get_object()
+        user_bookmark.favorite_products.remove(product)

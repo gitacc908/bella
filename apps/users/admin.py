@@ -3,8 +3,6 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 
-from apps.users.models import Bookmark
-
 
 class CustomUserAdmin(UserAdmin):
     """
@@ -12,10 +10,21 @@ class CustomUserAdmin(UserAdmin):
     """
     fieldsets = (
         (None, {'fields': ('phone', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name',)}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
-                                       'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (
+            _('Персональная Информация'), {
+                'fields': ('first_name', 'last_name',)
+            }
+        ),
+        (
+            _('Избранные'), {'fields': ('favorite_products',)}
+        ),
+        (
+            _('Права доступа'), {
+                'fields': ('is_active', 'is_staff', 'is_superuser',
+                           'groups', 'user_permissions')
+            }
+        ),
+        (_('Важные даты'), {'fields': ('last_login', 'date_joined')},),
     )
     add_fieldsets = (
         (None, {
@@ -29,4 +38,3 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(get_user_model(), CustomUserAdmin)
-admin.site.register(Bookmark)

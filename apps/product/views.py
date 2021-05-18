@@ -1,6 +1,17 @@
 from rest_framework import generics
-from apps.product.models import Product
-from apps.product.serializers import ProductSerializer
+from apps.product.models import Product, Category
+from apps.product.serializers import ProductSerializer, CategorySerializer, CategoryDetailSerializer
+
+
+class CategoryListAPIView(generics.ListAPIView):
+    queryset = Category.objects.filter(parent=None)
+    serializer_class = CategorySerializer
+
+
+class CategoryDetailAPIView(generics.RetrieveAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategoryDetailSerializer
+    lookup_field = 'slug'
 
 
 class ProductListAPIView(generics.ListAPIView):
