@@ -1,6 +1,9 @@
 from rest_framework import generics
 from apps.product.models import Product, Category
-from apps.product.serializers import ProductSerializer, CategorySerializer, CategoryDetailSerializer
+from rest_framework import filters
+from apps.product.serializers import (
+    ProductSerializer, CategorySerializer, CategoryDetailSerializer
+)
 
 
 class CategoryListAPIView(generics.ListAPIView):
@@ -35,7 +38,14 @@ class BestsellerAPIView(generics.ListAPIView):
     serializer_class = ProductSerializer
 
 
-class SortByAPIView(generics.ListAPIView):  # TODO: get sort by param from front
+class SearchAPIView(generics.ListAPIView):
+    search_fields = ['title', 'description']
+    filter_backends = (filters.SearchFilter,)
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class SortByAPIView(generics.ListAPIView):  # TODO: get sort_by param from front
     # queryset = Product.objects.order_by('-rating')[0:12]
     # serializer_class = ProductSerializer
     pass

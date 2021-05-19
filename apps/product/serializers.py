@@ -3,21 +3,24 @@ from rest_framework_recursive.fields import RecursiveField
 from rest_framework import serializers
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        exclude = ('created',)
-
-
 class CategorySerializer(serializers.ModelSerializer):
     children = RecursiveField(many=True)
 
     class Meta:
         model = Category
-        fields = ('title', 'slug', 'children')
+        fields = ('id', 'title', 'slug', 'children')
 
 
 class CategoryDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('title', 'products')
+        fields = ('id', 'title', 'products')
+        depth = 1
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    categories = CategorySerializer(many=True, read_only=True,)
+
+    class Meta:
+        model = Product
+        exclude = ('created', 'updated')

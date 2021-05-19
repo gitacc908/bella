@@ -1,9 +1,9 @@
+from django.urls import path
 from apps.product.views import CategoryListAPIView, CategoryDetailAPIView
 from apps.product.views import (
     ProductListAPIView, ProductDetailAPIView, LatestAPIView,
-    BestsellerAPIView, SortByAPIView
+    BestsellerAPIView, SortByAPIView, SearchAPIView
 )
-from django.urls import path
 
 
 urlpatterns = [
@@ -17,6 +17,8 @@ urlpatterns = [
          name='best-seller'),
     path('sort-by/', SortByAPIView.as_view(),
          name='sort-by'),
+    path('search_products/', SearchAPIView.as_view(),
+         name='search_products'),
 
     # category
     path('category/', CategoryListAPIView.as_view(),

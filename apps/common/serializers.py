@@ -7,7 +7,7 @@ from .models import (
 class AboutInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = About
-        exclude = ('created_at')
+        exclude = ('created_at',)
 
 
 class ContactInfoSerializer(serializers.ModelSerializer):
@@ -19,7 +19,7 @@ class ContactInfoSerializer(serializers.ModelSerializer):
 class DeliveryInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeliveryInfo
-        exclude = ('created_at')
+        exclude = ('created_at',)
 
 
 class FAQSerializer(serializers.ModelSerializer):

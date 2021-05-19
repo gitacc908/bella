@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from apps.order.choices import PAYMENT_CHOICES
+from apps.order.choices import PAYMENT_CHOICES, ONLINE
 from apps.product.models import Product
 
 
@@ -13,7 +13,6 @@ class Order(models.Model):
     Order model that has all required information about user's order
     """
     owner = models.ForeignKey(
-
         User, verbose_name='Владелец заказа', related_name='orders',
         on_delete=models.CASCADE
     )
@@ -24,7 +23,8 @@ class Order(models.Model):
         default=False, verbose_name='Оплачено'
     )
     buying_type = models.PositiveSmallIntegerField(
-        choices=PAYMENT_CHOICES, verbose_name='Тип оплаты'
+        choices=PAYMENT_CHOICES, default=ONLINE,
+        verbose_name='Тип оплаты'
     )
     is_delivered = models.BooleanField(
         default=False, verbose_name='Доставлено'
@@ -35,7 +35,6 @@ class Order(models.Model):
         verbose_name_plural = 'Заказы'
 
     def __str__(self):
-
         return f'Заказ пользователя: {self.owner.phone}'
 
 
@@ -44,7 +43,6 @@ class OrderItem(models.Model):
     OrderItem model that store data about all user's buying products, product price and product quantity
     """
     owner = models.ForeignKey(
-
         User, verbose_name='Владелец купленного товара',
         related_name='order_items', on_delete=models.CASCADE
     )

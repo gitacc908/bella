@@ -39,11 +39,10 @@ class Category(MPTTModel):
 
 
 class Product(models.Model):
-
     """
-        Contains data for product, m2m relation with Category
-        and bunch of choice fields for product
-        """
+    Contains data for product, m2m relation with Category
+    and bunch of choice fields for product
+    """
     categories = models.ManyToManyField(
         Category, verbose_name='Категория', related_name='products'
     )
@@ -98,12 +97,12 @@ class Product(models.Model):
     )
 
     class Meta:
-        verbose_name = 'Product'
-        verbose_name_plural = "Products"
+        verbose_name = 'Продукт'
+        verbose_name_plural = "Продукты"
         ordering = ('-created',)
 
     def __str__(self):
         return f'Заголовок: {self.title}'
 
     def get_absolute_url(self):
-        return reverse("product_detail", kwargs={"slug": self.slug})
+        return reverse("product-detail", kwargs={"slug": self.slug})
