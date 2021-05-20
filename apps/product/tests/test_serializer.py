@@ -8,7 +8,6 @@ from apps.product.serializers import (
 from apps.product.choices import (
     AMPIR, POLYESTER, XL, CYAN
 )
-import json
 
 
 class CategorySerializerTestCase(TestCase):
