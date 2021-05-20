@@ -78,6 +78,10 @@ class DeleteFromBookmarkView(generics.UpdateAPIView):
         return generics.get_object_or_404(User, phone=self.request.user.phone)
 
     def perform_update(self, serializer):
-        product = serializer.validated_data.get('favorite_products')[0]
-        user_bookmark = self.get_object()
-        user_bookmark.favorite_products.remove(product)
+        try:
+            product = serializer.validated_data.get('favorite_products')[0]
+        except IndexError:
+            Response('Index out of range')
+        else:
+            user_bookmark = self.get_object()
+            user_bookmark.favorite_products.remove(product)
