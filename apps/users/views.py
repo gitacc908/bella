@@ -59,7 +59,6 @@ class AddToBookmarkView(generics.UpdateAPIView):
     def perform_update(self, serializer):
         user_bookmark = self.get_object()
         try:
-            serializer.validated_data.get('favorite_products')[0]
             user_bookmark.favorite_products.add(
                 serializer.validated_data.get('favorite_products')[0]
             )

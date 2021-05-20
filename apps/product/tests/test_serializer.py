@@ -1,5 +1,4 @@
 from django.test import TestCase
-from rest_framework import serializers
 from apps.product.models import Category
 from apps.product.models import Product
 
@@ -9,6 +8,7 @@ from apps.product.serializers import (
 from apps.product.choices import (
     AMPIR, POLYESTER, XL, CYAN
 )
+import json
 
 
 class CategorySerializerTestCase(TestCase):
@@ -50,6 +50,9 @@ class CategorySerializerTestCase(TestCase):
                 ]
             }
         ]
+        serializer_data_detail = CategoryDetailSerializer(category2)
+        category_created = serializer_data_detail.data['products'][0]['created']
+        category_updated = serializer_data_detail.data['products'][0]['updated']
         serializer_data_detail = CategoryDetailSerializer(category2).data
         expected_data_detail = {
             'id': category2.id,
@@ -62,16 +65,16 @@ class CategorySerializerTestCase(TestCase):
                     'article': 'some article',
                     'quantity': 20,
                     'color': 3,
-                    'price': 123.00,
+                    'price': format(123, '.2f'),
                     'description': 'some desc',
-                    'fabric_structure': 'Полиэстер',
+                    'fabric_structure': 12,
                     'size_range': 50,
                     'length': 50,
                     'fashion': 15,
                     'discount': 10,
                     'rating': 0,
-                    'created': str(product.created),
-                    'updated': str(product.updated),
+                    'created': category_created,
+                    'updated': category_updated,
                     'categories': [
                         9
                     ]
@@ -101,20 +104,27 @@ class ProductSerializerTestCase(TestCase):
         product.categories.add(category)
         serializer_data = ProductSerializer(product).data
         expected_data = {
-            'id': product.id,
-            'title': 'test product',
-            'slug': product.slug,
-            'article': 'some article',
-            'quantity': 20,
-            'color': CYAN,
-            'price': format(123, '.2f'),
-            'description': 'some desc',
-            'fabric_structure': POLYESTER,
-            'size_range': XL,
-            'length': XL,
-            'fashion': AMPIR,
-            'discount': 10,
-            'rating': 0,
-            'categories': [category.id]
+            "id": product.id,
+            "categories": [
+                {
+                    "id": category.id,
+                    "title": "test",
+                    "slug": "test",
+                    "children": []
+                }
+            ],
+            "title": "test product",
+            "slug": product.slug,
+            "article": "some article",
+            "quantity": 20,
+            "color": CYAN,
+            "price": format(123, ".2f"),
+            "description": "some desc",
+            "fabric_structure": POLYESTER,
+            "size_range": XL,
+            "length": XL,
+            "fashion": AMPIR,
+            "discount": 10,
+            "rating": 0,
         }
         self.assertEqual(expected_data, serializer_data)
