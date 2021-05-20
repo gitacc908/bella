@@ -1,15 +1,8 @@
 from rest_framework import serializers
 
-from apps.order.models import Order, OrderItem
 
-
-class OrderItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = OrderItem
-        fields = ('id', 'owner', 'order', 'product', 'price', 'quantity')
-
-
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Order
-        fields = ('id', 'owner', 'is_paid', 'buying_type', 'is_delivered')
+class OrderSerializer(serializers.Serializer):
+    product_ids = serializers.IntegerField()
+    price = serializers.DecimalField(max_digits=10, decimal_places=2)
+    quantity = serializers.IntegerField()
+    buying_type = serializers.CharField()

@@ -3,6 +3,7 @@ from django.db.models.fields import DecimalField
 from autoslug import AutoSlugField
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
+
 from .choices import (
     COLOR_CHOICES, CYAN, CLOTHING_FABRIC_CHOICES, POLYESTER,
     SIZE_RANGE_CHOICES, XL, LENGTH_RANGE_CHOICES, FASHION_CHOICES,
@@ -84,7 +85,7 @@ class Product(models.Model):
         default=A_SILHOUETTE
     )
     discount = models.PositiveSmallIntegerField(
-        verbose_name='Скидка в процентах', blank=True, null=True
+        verbose_name='Скидка в процентах', default=0
     )
     rating = models.PositiveSmallIntegerField(
         verbose_name='Рейтинг', default=0

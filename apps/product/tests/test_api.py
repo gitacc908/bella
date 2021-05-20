@@ -1,10 +1,11 @@
 from django.test import TestCase
-from django.urls import reverse
 from rest_framework import status
 
 from apps.product.models import Category
 from apps.product.models import Product
 from apps.product.choices import AMPIR
+from django.urls import reverse
+
 from apps.product.serializers import (
     CategorySerializer, CategoryDetailSerializer,
     ProductSerializer
@@ -66,27 +67,39 @@ class ProductAPITestCase(TestCase):
             fashion=AMPIR,
             discount=10,
         )
+        self.product2 = Product.objects.create(
+            title='test product2',
+            article='some article2',
+            quantity=20,
+            price=123,
+            description='some desc2',
+            fashion=AMPIR,
+            discount=10,
+        )
         self.product.categories.add(self.category)
+        self.product2.categories.add(self.category)
+        self.product2.categories.remove(self.category)
 
     def test_get_all(self):
         response = self.client.get(reverse('product-list'))
         products = Product.objects.all()
         product_serializer = ProductSerializer(products, many=True).data
-        self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(product_serializer, response.data)
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
 
     def test_get_detail(self):
         response = self.client.get(
             reverse('product-detail', kwargs={"slug": self.product.slug})
         )
         product_serializer = ProductSerializer(self.product).data
-        self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(product_serializer, response.data)
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertIn(self.category, self.product.categories.all())
+        self.assertNotIn(self.category, self.product2.categories.all())
 
     def test_best_seller(self):
         response = self.client.get(reverse('best-seller'))
         bs_queryset = Product.objects.order_by('-rating')[0:12]
         product_serializer = ProductSerializer(bs_queryset, many=True).data
-        self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(product_serializer, response.data)
+        self.assertEqual(status.HTTP_200_OK, response.status_code)

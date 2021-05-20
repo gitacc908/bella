@@ -58,8 +58,13 @@ class AddToBookmarkView(generics.UpdateAPIView):
 
     def perform_update(self, serializer):
         user_bookmark = self.get_object()
-        user_bookmark.favorite_products.add(
-            serializer.validated_data.get('favorite_products')[0])
+        try:
+            serializer.validated_data.get('favorite_products')[0]
+            user_bookmark.favorite_products.add(
+                serializer.validated_data.get('favorite_products')[0]
+            )
+        except IndexError:
+            return Response('Index out of range')
 
 
 class DeleteFromBookmarkView(generics.UpdateAPIView):

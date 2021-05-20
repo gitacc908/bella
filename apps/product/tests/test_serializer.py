@@ -1,7 +1,8 @@
 from django.test import TestCase
-
+from rest_framework import serializers
 from apps.product.models import Category
 from apps.product.models import Product
+
 from apps.product.serializers import (
     CategorySerializer, CategoryDetailSerializer, ProductSerializer
 )
@@ -31,7 +32,7 @@ class CategorySerializerTestCase(TestCase):
             fashion=AMPIR,
             discount=10,
         )
-        product.categories.set((category2,))
+        product.categories.add(category2)
         categories = Category.objects.filter(parent=None)
         serializer_data = CategorySerializer(categories, many=True).data
         expected_data = [
@@ -54,7 +55,27 @@ class CategorySerializerTestCase(TestCase):
             'id': category2.id,
             'title': 'test children',
             'products': [
-                product.id
+                {
+                    'id': product.id,
+                    'title': 'test product',
+                    'slug': 'test-product',
+                    'article': 'some article',
+                    'quantity': 20,
+                    'color': 3,
+                    'price': 123.00,
+                    'description': 'some desc',
+                    'fabric_structure': 'Полиэстер',
+                    'size_range': 50,
+                    'length': 50,
+                    'fashion': 15,
+                    'discount': 10,
+                    'rating': 0,
+                    'created': str(product.created),
+                    'updated': str(product.updated),
+                    'categories': [
+                        9
+                    ]
+                }
             ]
         }
         self.assertEqual(expected_data, serializer_data)

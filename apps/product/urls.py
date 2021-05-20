@@ -1,5 +1,6 @@
 from django.urls import path
 from apps.product.views import CategoryListAPIView, CategoryDetailAPIView
+
 from apps.product.views import (
     ProductListAPIView, ProductDetailAPIView, LatestAPIView,
     BestsellerAPIView, SortByAPIView, SearchAPIView

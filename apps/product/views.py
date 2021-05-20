@@ -1,6 +1,7 @@
-from rest_framework import generics
+from rest_framework import generics, filters
+
 from apps.product.models import Product, Category
-from rest_framework import filters
+
 from apps.product.serializers import (
     ProductSerializer, CategorySerializer, CategoryDetailSerializer
 )

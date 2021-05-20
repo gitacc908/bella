@@ -23,8 +23,7 @@ class Order(models.Model):
         default=False, verbose_name='Оплачено'
     )
     buying_type = models.PositiveSmallIntegerField(
-        choices=PAYMENT_CHOICES, default=ONLINE,
-        verbose_name='Тип оплаты'
+        choices=PAYMENT_CHOICES, verbose_name='Тип оплаты'
     )
     is_delivered = models.BooleanField(
         default=False, verbose_name='Доставлено'
@@ -74,7 +73,7 @@ class OrderItem(models.Model):
         if self.product.discount:
             percent = self.price / 100 * self.product.discount
             return self.price - percent
-        return 'No discount'
+        return 0
 
     def get_final_cost(self):
         if self.product.discount:

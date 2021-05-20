@@ -13,7 +13,7 @@ class AboutInfoSerializer(serializers.ModelSerializer):
 class ContactInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = '__all__'
+        fields = ('id', 'phone_number', 'email', 'location')
 
 
 class DeliveryInfoSerializer(serializers.ModelSerializer):
@@ -25,10 +25,11 @@ class DeliveryInfoSerializer(serializers.ModelSerializer):
 class FAQSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
-        fields = '__all__'
+        fields = ('id', 'question', 'answer')
 
 
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
-        fields = '__all__'
+        fields = ('id', 'title', 'slug', 'body', 'draft',
+                  'created_at', 'image')

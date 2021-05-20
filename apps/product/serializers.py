@@ -1,6 +1,7 @@
-from .models import Product, Category
-from rest_framework_recursive.fields import RecursiveField
 from rest_framework import serializers
+from rest_framework_recursive.fields import RecursiveField
+
+from .models import Product, Category
 
 
 class CategorySerializer(serializers.ModelSerializer):

@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from apps.common.models import (
     About, Contact, DeliveryInfo, FAQ, News
 )
