@@ -59,6 +59,7 @@ class CategorySerializerTestCase(TestCase):
             'products': [
                 {
                     'id': product.id,
+                    'image': None,
                     'title': 'test product',
                     'slug': 'test-product',
                     'article': 'some article',
@@ -104,6 +105,7 @@ class ProductSerializerTestCase(TestCase):
         serializer_data = ProductSerializer(product).data
         expected_data = {
             "id": product.id,
+            'image': None,
             "categories": [
                 {
                     "id": category.id,

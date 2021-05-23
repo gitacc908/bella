@@ -47,6 +47,9 @@ class Product(models.Model):
     categories = models.ManyToManyField(
         Category, verbose_name='Категория', related_name='products'
     )
+    image = models.ImageField(
+        upload_to='images/', verbose_name='Изображение'
+    )
     title = models.CharField(
         max_length=255, verbose_name='Наименование товара'
     )

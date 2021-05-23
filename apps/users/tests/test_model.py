@@ -3,7 +3,8 @@ from django.test import TestCase
 
 from apps.product.models import Category
 from apps.product.models import Product
-from apps.users.models import Bookmark
+from apps.product.choices import AMPIR
+
 
 User = get_user_model()
 
@@ -49,8 +50,14 @@ class CustomUserTests(TestCase):
             slug='test-parent',
         )
         product = Product.objects.create(
-            title='test product'
+            title='test product',
+            article='some article',
+            quantity=20,
+            price=123,
+            description='some desc',
+            fashion=AMPIR,
+            discount=10,
         )
-        product.category.set((category1,))
-        self.user.product.set((product,))
-        self.assertEqual(product, self.user.product.all()[0])
+        product.categories.set((category1,))
+        self.user.favorite_products.set((product,))
+        self.assertEqual(product, self.user.favorite_products.last())

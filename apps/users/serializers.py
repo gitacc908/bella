@@ -1,8 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from apps.product.models import Product
-
 
 User = get_user_model()
 
@@ -67,3 +65,9 @@ class UserBookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('favorite_products',)
+
+
+class UsersOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('orders',)

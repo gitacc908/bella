@@ -6,9 +6,9 @@ from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 
-from apps.product.models import Product
 from apps.users.serializers import (
-    UserBookmarkSerializer, UserSerializer, RegisterSerializer
+    UserBookmarkSerializer, UserSerializer, RegisterSerializer,
+    UsersOrderSerializer
 )
 
 
@@ -85,3 +85,12 @@ class DeleteFromBookmarkView(generics.UpdateAPIView):
         else:
             user_bookmark = self.get_object()
             user_bookmark.favorite_products.remove(product)
+
+
+class UsersOrderView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UsersOrderSerializer
+    lookup_field = 'orders'
+
+    # def get_queryset(self):
+    #     return super().get_queryset()
