@@ -3,7 +3,6 @@ from django.urls import path
 from apps.users.views import (
     BookmarkAPIDetailView, AddToBookmarkView,
     DeleteFromBookmarkView, UserAPICreateView,
-    UsersOrderView
 )
 
 urlpatterns = [
@@ -15,6 +14,4 @@ urlpatterns = [
          name='bookmark-add'),
     path('bookmark-delete/', DeleteFromBookmarkView.as_view(),
          name='bookmark-delete'),
-    path('orders/', UsersOrderView.as_view(),
-         name='orders')
 ]

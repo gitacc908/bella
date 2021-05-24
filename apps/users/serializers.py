@@ -65,9 +65,3 @@ class UserBookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('favorite_products',)
-
-
-class UsersOrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('orders',)
