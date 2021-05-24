@@ -19,10 +19,12 @@ class UserAPICreateView(generics.CreateAPIView):
     queryset = User
     serializer_class = RegisterSerializer
 
-
-class UserAPIListView(generics.ListAPIView):
-    queryset = User
-    serializer_class = UserSerializer
+    def post(self, request, *args, **kwargs):
+        typed_code = request.GET.get('typed_code')
+        sent_code = request.GET.get('sent_code')
+        if sent_code and typed_code and sent_code == typed_code:
+            return super().post(request, *args, **kwargs)
+        return Response("OTP didn't match! ", status=417)
 
 
 class BlackListTokenView(APIView):
